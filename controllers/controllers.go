@@ -68,6 +68,12 @@ func CreateCoin(c *gin.Context) {
 		return
 	}
 
+	if err := models.ValidateCoinData(&coin); err != nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error()})
+		return
+	}
+
 	database.DB.Create(&coin)
 
 	c.JSON(http.StatusOK, coin)
@@ -75,23 +81,31 @@ func CreateCoin(c *gin.Context) {
 
 func UpdateCoin(c *gin.Context) {
 	var coin models.Coin
-
+	id := c.Params.ByName("id")
+	database.DB.First(&coin, id)
+	
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found"})
+		return
+	}
+	
 	if err := c.ShouldBindJSON(&coin); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error()})
 		return
 	}
-
-	id := c.Params.ByName("id")
-	database.DB.First(&coin, id)
-	if coin.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"Not Found": "Coin not found",
-		})
+		
+	if err := models.ValidateCoinData(&coin); err != nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error()})
 		return
 	}
 
-	database.DB.Model(&coin).UpdateColumns(coin)
+	
+
+
+	database.DB.Save(&coin)
 	c.JSON(http.StatusOK, coin)
 }
 

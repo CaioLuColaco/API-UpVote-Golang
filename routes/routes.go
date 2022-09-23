@@ -15,8 +15,8 @@ func HandleRequests() {
 
 	r.POST("/coin", controllers.CreateCoin)
 	r.PATCH("/coin/:id", controllers.UpdateCoin)
-
-	r.DELETE("/coin/:id", controllers.DeleteCoin)
 	
+	r.DELETE("/coin/:id", controllers.DeleteCoin)
+
 	r.Run(":2005")
 }
