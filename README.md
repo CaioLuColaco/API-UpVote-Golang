@@ -1,5 +1,5 @@
 # API - UpVote - Golang
-## This Golang code sends and save the information on the value of coins votes.
+## This Golang code sends and saves the information about the value of the coins votes.
 
 <div align="center">
   <img src="https://img.shields.io/static/v1?label=Go&message=1.19.1&color=7159c1&style=for-the-badge&logo=Go"/>
@@ -13,7 +13,7 @@
  <a href="#features">Features</a> •
  <a href="#-tecnologias">Tecnologias</a> • 
  <a href="#Pré-requisitos">Pré-requisitos</a> • 
- <a href="#-Documentação">Autor</a>
+ <a href="#-Documentação">Documentação</a> • 
  <a href="#autor">Autor</a>
 </h3>
 
@@ -63,7 +63,7 @@ $ go run main.go
 
 ```
 
-### 🛠 Documentação
+### 📒 Documentação
 ---
 ```bash
 # Execute a aplicação em modo de desenvolvimento
