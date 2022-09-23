@@ -13,3 +13,4 @@ func ShowCoins(c *gin.Context) {
 		"votos": 3,
 	})
 }
+
