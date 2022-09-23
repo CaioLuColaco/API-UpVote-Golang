@@ -29,6 +29,36 @@ func ShowOneCoin(c *gin.Context) {
 	c.JSON(http.StatusOK, coin)
 }
 
+func ShowCoinByName(c *gin.Context) {
+	var coin models.Coin
+	name := c.Params.ByName("name")
+	database.DB.Where(&models.Coin{Name: name}).First(&coin)
+	
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, coin)
+}
+
+func ShowCoinByShortName(c *gin.Context) {
+	var coin models.Coin
+	shortname := c.Params.ByName("shortname")
+	database.DB.Where(&models.Coin{ShortName: shortname}).First(&coin)
+	
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, coin)
+}
+
 func CreateCoin(c *gin.Context) {
 	var coin models.Coin
 
