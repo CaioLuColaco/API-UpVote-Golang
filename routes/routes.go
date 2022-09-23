@@ -8,5 +8,6 @@ import (
 func HandleRequests() {
 	r := gin.Default()
 	r.GET("/coins", controllers.ShowCoins)
+	r.POST("/coin", controllers.CreateCoin)
 	r.Run(":2005")
 }
