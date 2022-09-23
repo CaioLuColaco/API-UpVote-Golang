@@ -10,5 +10,7 @@ func HandleRequests() {
 	r.GET("/coins", controllers.ShowAllCoins)
 	r.GET("/coins/:id", controllers.ShowOneCoin)
 	r.POST("/coin", controllers.CreateCoin)
+	r.DELETE("/coin/:id", controllers.DeleteCoin)
+	r.PATCH("/coin/:id", controllers.UpdateCoin)
 	r.Run(":2005")
 }

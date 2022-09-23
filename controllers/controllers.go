@@ -31,11 +31,52 @@ func ShowOneCoin(c *gin.Context) {
 
 func CreateCoin(c *gin.Context) {
 	var coin models.Coin
+
 	if err := c.ShouldBindJSON(&coin); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error()})
 		return
 	}
+
 	database.DB.Create(&coin)
+
 	c.JSON(http.StatusOK, coin)
+}
+
+func UpdateCoin(c *gin.Context) {
+	var coin models.Coin
+
+	if err := c.ShouldBindJSON(&coin); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error()})
+		return
+	}
+
+	id := c.Params.ByName("id")
+	database.DB.First(&coin, id)
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found",
+		})
+		return
+	}
+
+	database.DB.Model(&coin).UpdateColumns(coin)
+	c.JSON(http.StatusOK, coin)
+}
+
+func DeleteCoin(c *gin.Context) {
+	var coin models.Coin
+	id := c.Params.ByName("id")
+	database.DB.First(&coin, id)
+
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found",
+		})
+		return
+	}
+
+	database.DB.Delete(&coin, id)
+	c.JSON(http.StatusOK, gin.H{"data": "Coin deleted!"})
 }
