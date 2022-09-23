@@ -14,6 +14,21 @@ func ShowAllCoins(c *gin.Context) {
 	c.JSON(http.StatusOK, coins)
 }
 
+func ShowOneCoin(c *gin.Context) {
+	var coin models.Coin
+	id := c.Params.ByName("id")
+	database.DB.First(&coin, id)
+	
+	if coin.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Not Found": "Coin not found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, coin)
+}
+
 func CreateCoin(c *gin.Context) {
 	var coin models.Coin
 	if err := c.ShouldBindJSON(&coin); err != nil {
