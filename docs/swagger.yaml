@@ -1,0 +1,245 @@
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  models.Coin:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        minimum: 0
+        type: number
+      shortname:
+        type: string
+      updatedAt:
+        type: string
+      votes:
+        minimum: 0
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /coin:
+    post:
+      consumes:
+      - application/json
+      description: Route used to create a one coin
+      parameters:
+      - description: Model of Coin
+        in: body
+        name: coin
+        required: true
+        schema:
+          $ref: '#/definitions/models.Coin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Create one coin
+      tags:
+      - coin
+  /coin/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Route used to delete a one coin by ID
+      parameters:
+      - description: Coin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Delete one coin
+      tags:
+      - coin
+    get:
+      consumes:
+      - application/json
+      description: Route used to get a one coin registred by ID
+      parameters:
+      - description: Coin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Show one coin registred
+      tags:
+      - coin
+    patch:
+      consumes:
+      - application/json
+      description: Route used to update a one coin by ID
+      parameters:
+      - description: Coin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Model of Coin
+        in: body
+        name: coin
+        required: true
+        schema:
+          $ref: '#/definitions/models.Coin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Create one coin
+      tags:
+      - coin
+  /coin/name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Route used to get a one coin registred by Name
+      parameters:
+      - description: Coin Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Show one coin registred
+      tags:
+      - coin
+  /coins:
+    get:
+      consumes:
+      - application/json
+      description: Route used to list all coins registred
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Show all coins registred
+      tags:
+      - coin
+  /coins/shortName/{shortname}:
+    get:
+      consumes:
+      - application/json
+      description: Route used to get a one coin registred by ShortName
+      parameters:
+      - description: Coin Name
+        in: path
+        name: shortname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Coin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Show one coin registred
+      tags:
+      - coin
+swagger: "2.0"
