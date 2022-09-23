@@ -8,12 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ShowCoins(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"id": 1,
-		"coin": "Bitcoin",
-		"votos": 3,
-	})
+func ShowAllCoins(c *gin.Context) {
+	var coins []models.Coin
+	database.DB.Find(&coins)
+	c.JSON(http.StatusOK, coins)
 }
 
 func CreateCoin(c *gin.Context) {
