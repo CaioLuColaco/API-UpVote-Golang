@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/CaioLuColaco/api-upVote-golang/models"
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -15,20 +14,8 @@ var (
 	err error
 )
 
-func goDotEnvVariable(key string) string {
-
-	// load .env file
-	err := godotenv.Load(".env")
-  
-	if err != nil {
-	  log.Fatalf("Error loading .env file")
-	}
-  
-	return os.Getenv(key)
-  }
-
 func ConnectToDatabase() {
-	DB, err = gorm.Open(postgres.Open(goDotEnvVariable("DATABASE_URL")))
+	DB, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")))
 	if err != nil {
 		log.Panic("Erro na conexão com o Banco de dados")
 	}
