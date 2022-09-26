@@ -7,6 +7,7 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 func HandleRequests() {
@@ -26,5 +27,12 @@ func HandleRequests() {
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	r.Run("0.0.0.0:2005")
+	// r.Run("0.0.0.0:2005")
+	if os.Getenv("PORT") != "" {
+		// Heroku add a env variable called PORT, if exist we will use it
+		r.Run("0.0.0.0:" + os.Getenv("PORT"))
+	} else {
+		// If is running on localhost (our computer), no PORT env variable
+		r.Run("0.0.0.0:8080")
+	}
 }
