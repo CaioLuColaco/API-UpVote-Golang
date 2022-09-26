@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/CaioLuColaco/api-upVote-golang/controllers"
+	"github.com/gin-contrib/cors"
 	docs "github.com/CaioLuColaco/api-upVote-golang/docs"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,7 +13,7 @@ func HandleRequests() {
 	r := gin.Default()
 
 	docs.SwaggerInfo.BasePath = "/"
-
+	r.Use(cors.Default())
 	r.GET("/coins", controllers.ShowAllCoins)
 	r.GET("/coins/:id", controllers.ShowOneCoin)
 	r.GET("/coins/name/:name", controllers.ShowCoinByName)
