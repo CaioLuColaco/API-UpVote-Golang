@@ -26,5 +26,5 @@ func HandleRequests() {
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	r.Run(":2005")
+	r.Run("0.0.0.0:2005")
 }
