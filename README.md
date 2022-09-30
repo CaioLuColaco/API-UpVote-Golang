@@ -6,8 +6,12 @@
 </div>
 
 <h3 align="center"> 
-	🚧  API - UPVote - Go 💲 Em construção...  🚧
+	  API - UPVote - Go 💲 Working...  👨‍💻
 </h3>
+
+<h4 align="center"> 
+	https://api-upvote-golang.herokuapp.com/swagger/index.html
+</h4>
 
 <h3 align="center">
  <a href="#features">Features</a> •
